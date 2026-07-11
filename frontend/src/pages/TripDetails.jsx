@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+const API_URL = import.meta.env.VITE_API_URL;
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { api } from "../utils/api.js";
 import {
@@ -90,7 +91,7 @@ const TripDetails = () => {
     const geocode = async () => {
       try {
         const response = await fetch(
-          `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
+          `${API_URL}/api/geocode?q=${encodeURIComponent(
             trip.destination,
           )}&format=json&limit=1`,
         );
@@ -145,10 +146,7 @@ const TripDetails = () => {
 
   const handleDownloadPDF = () => {
     const token = localStorage.getItem("token");
-    window.open(
-      `http://localhost:5000/api/trips/${id}/pdf?token=${token}`,
-      "_blank",
-    );
+    window.open(`${API_URL}/api/trips/${id}/pdf?token=${token}`, "_blank");
   };
 
   const togglePackingItem = (item) => {
@@ -326,7 +324,13 @@ const TripDetails = () => {
                   <Globe size={12} />
                   Destination Country
                 </span>
-                <span style={{ fontSize: "1rem", fontWeight: 700, color: "var(--text-primary)" }}>
+                <span
+                  style={{
+                    fontSize: "1rem",
+                    fontWeight: 700,
+                    color: "var(--text-primary)",
+                  }}
+                >
                   {trip.country || "N/A"}
                 </span>
               </div>
@@ -345,7 +349,13 @@ const TripDetails = () => {
                   <Landmark size={12} />
                   Capital
                 </span>
-                <span style={{ fontSize: "1rem", fontWeight: 700, color: "var(--text-primary)" }}>
+                <span
+                  style={{
+                    fontSize: "1rem",
+                    fontWeight: 700,
+                    color: "var(--text-primary)",
+                  }}
+                >
                   {countryInfo.capital || "N/A"}
                 </span>
               </div>
@@ -389,7 +399,13 @@ const TripDetails = () => {
                   <Languages size={12} />
                   Primary Languages
                 </span>
-                <span style={{ fontSize: "1rem", fontWeight: 700, color: "var(--text-primary)" }}>
+                <span
+                  style={{
+                    fontSize: "1rem",
+                    fontWeight: 700,
+                    color: "var(--text-primary)",
+                  }}
+                >
                   {countryInfo.languages || "N/A"}
                 </span>
               </div>
@@ -513,8 +529,7 @@ const TripDetails = () => {
                         display: "flex",
                         justifyContent: "space-between",
                         alignItems: "center",
-                        borderBottom:
-                          "1px solid var(--border-color)",
+                        borderBottom: "1px solid var(--border-color)",
                         paddingBottom: "10px",
                         marginBottom: "16px",
                       }}
@@ -746,7 +761,13 @@ const TripDetails = () => {
                             gap: "12px",
                           }}
                         >
-                          <span style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--text-primary)" }}>
+                          <span
+                            style={{
+                              fontSize: "1.1rem",
+                              fontWeight: 800,
+                              color: "var(--text-primary)",
+                            }}
+                          >
                             {w.temp}°C
                           </span>
                           <img
@@ -1024,7 +1045,9 @@ const TripDetails = () => {
                         borderRadius: "var(--radius-md)",
                         cursor: "pointer",
                         textDecoration: checked ? "line-through" : "none",
-                        color: checked ? "var(--text-muted)" : "var(--text-primary)",
+                        color: checked
+                          ? "var(--text-muted)"
+                          : "var(--text-primary)",
                         transition: "all 0.2s",
                       }}
                     >

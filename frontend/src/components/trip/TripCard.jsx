@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+const API_URL = import.meta.env.VITE_API_URL;
 import { useNavigate } from "react-router-dom";
 import {
   Calendar,
@@ -32,7 +33,7 @@ const TripCard = ({ trip, onDelete }) => {
     const token = localStorage.getItem("token");
     // Open in new tab which will initiate browser file download
     window.open(
-      `http://localhost:5000/api/trips/${trip._id}/pdf?token=${token}`,
+      `${API_URL}/api/trips/${trip._id}/pdf?token=${token}`,
       "_blank",
     );
   };
